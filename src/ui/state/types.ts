@@ -1,4 +1,4 @@
-export type VitrineType = "all" | "groceries" | "ready_food" | "sushi" | "burgers" | "pizza" | "georgian" | "clothes" | "tools" | "components";
+export type VitrineType = "all" | "groceries" | "ready_food" | "sushi" | "burgers" | "pizza" | "georgian" | "clothes" | "tools" | "components" | "electronics";
 
 export type Seller = {
   id: string;

@@ -13,6 +13,7 @@ import { Tracking } from "@/ui/screens/Tracking";
 import { Orders } from "@/ui/screens/Orders";
 import { Profile } from "@/ui/screens/Profile";
 import { SellerPage } from "@/ui/screens/SellerPage";
+import { Stores } from "@/ui/screens/Stores";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +32,8 @@ export const router = createBrowserRouter([
       { path: "tracking/:orderId", Component: Tracking },
       { path: "orders", Component: Orders },
       { path: "profile", Component: Profile },
-      { path: "seller/:id", Component: SellerPage }
+      { path: "seller/:id", Component: SellerPage },
+      { path: "stores", Component: Stores }
     ],
   },
 ]);

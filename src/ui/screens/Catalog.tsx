@@ -24,15 +24,16 @@ const foodVitrines: MenuNode[] = [
 ];
 
 const restaurantVitrines: MenuNode[] = [
-  { id: "sushi", title: "Роллы", emoji: "🍣", subtitle: "Свежие роллы и суши" },
-  { id: "burgers", title: "Бургеры", emoji: "🍔", subtitle: "Сочные бургеры" },
-  { id: "pizza", title: "Пицца", emoji: "🍕", subtitle: "Горячая пицца" },
-  { id: "georgian", title: "Грузинская кухня", emoji: "🥟", subtitle: "Хачапури и хинкали" },
+  { id: "seller-5", title: "Семейное кафе Кексбери", emoji: "🍱", subtitle: "Роллы, пицца, бургеры" },
+  { id: "seller-6", title: "Бургер Хаус", emoji: "🍔", subtitle: "Самые сочные крафтовые бургеры" },
+  { id: "seller-7", title: "ПиццаФабрика", emoji: "🍕", subtitle: "Настоящая итальянская пицца" },
+  { id: "seller-8", title: "Грузинский Дворик", emoji: "🥟", subtitle: "Лучшие хинкали и хачапури" },
 ];
 
 const toolsVitrines: MenuNode[] = [
   { id: "tools", title: "Инструменты", emoji: "🔧", subtitle: "Для ремонта" },
-  { id: "components", title: "Комплектующие", emoji: "⚙️", subtitle: "Для бытовой техники и электроники" },
+  { id: "components", title: "Комплектующие", emoji: "⚙️", subtitle: "Для бытовой техники" },
+  { id: "electronics", title: "Электроника", emoji: "📱", subtitle: "Гаджеты и техника" },
 ];
 
 export function Catalog() {
@@ -99,6 +100,10 @@ export function Catalog() {
   }, [selected]);
 
   const handleSelect = (node: MenuNode) => {
+    if (node.id.startsWith("seller-")) {
+      nav(`/seller/${node.id}`);
+      return;
+    }
     if (node.id === "foodMenu") {
       setViewLevel("foodMenu");
     } else if (node.id === "restaurantsMenu") {
@@ -117,7 +122,7 @@ export function Catalog() {
       setViewLevel("restaurantsMenu");
     } else if (selected && ["groceries", "ready_food"].includes(selected)) {
       setViewLevel("foodMenu");
-    } else if (selected && ["tools", "components"].includes(selected)) {
+    } else if (selected && ["tools", "components", "electronics"].includes(selected)) {
       setViewLevel("toolsMenu");
     } else {
       setViewLevel("root");
@@ -159,8 +164,59 @@ export function Catalog() {
   if (viewLevel === "foodMenu") {
     return renderGrid(foodVitrines, "Еда", "Продукты и блюда", () => setViewLevel("root"), "foodMenu");
   }
+  const renderRestaurantGrid = (items: MenuNode[], title: string, subtitle: string, onBack: () => void) => (
+    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+      <Header title={title} onBack={onBack} />
+      <div className="px-4 py-6 bg-white mb-2">
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{title}</h1>
+        <p className="text-sm text-gray-600">{subtitle}</p>
+      </div>
+      <div className="px-4 py-4 space-y-4">
+        {items.map((v) => {
+          const seller = sellers.find(s => s.id === v.id);
+          return (
+            <button
+              key={v.id}
+              onClick={() => handleSelect(v)}
+              className="w-full text-left bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm"
+            >
+              {/* Banner image */}
+              {seller?.bannerUrl ? (
+                <div className="w-full h-32 overflow-hidden relative">
+                  <img
+                    src={seller.bannerUrl}
+                    alt={v.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                </div>
+              ) : (
+                <div className="w-full h-32 bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center">
+                  <span className="text-5xl">{v.emoji}</span>
+                </div>
+              )}
+              {/* Info row */}
+              <div className="flex items-center gap-3 p-4">
+                {seller?.logo && (
+                  <div className="w-12 h-12 rounded-xl overflow-hidden border border-gray-100 flex-shrink-0 -mt-8 bg-white shadow">
+                    <img src={seller.logo} alt={v.title} className="w-full h-full object-cover" />
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base font-bold text-gray-900 truncate">{v.title}</h3>
+                  <p className="text-xs text-gray-500 truncate">{v.subtitle}</p>
+                </div>
+                <span className="text-gray-400 flex-shrink-0">›</span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+
   if (viewLevel === "restaurantsMenu") {
-    return renderGrid(restaurantVitrines, "Рестораны/ФастФуд", "Доставка из любимых заведений", () => setViewLevel("foodMenu"), "restaurantsMenu");
+    return renderRestaurantGrid(restaurantVitrines, "Рестораны/ФастФуд", "Доставка из любимых заведений", () => setViewLevel("foodMenu"));
   }
   if (viewLevel === "toolsMenu") {
     return renderGrid(toolsVitrines, "Инструменты", "Всё для ремонта и техники", () => setViewLevel("root"), "toolsMenu");
@@ -246,7 +302,7 @@ export function Catalog() {
             <div key={p.id} className="bg-white rounded-2xl border border-gray-100 p-3 text-left">
               <div className="aspect-square rounded-xl bg-gray-100 overflow-hidden mb-3">
                 <button onClick={() => nav(`/product/${p.id}`)} className="w-full h-full">
-                  <img src={p.images[0]} alt={p.title} className="w-full h-full object-cover" />
+                  <img src={p.images[0]} alt={p.title} className="w-full h-full object-contain p-2" />
                 </button>
               </div>
               <p className="text-sm text-gray-900 line-clamp-2 min-h-[40px] mb-1">

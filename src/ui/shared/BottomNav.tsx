@@ -1,4 +1,4 @@
-import { Home, Package, ShoppingBag, ShoppingCart, User } from "lucide-react";
+import { Home, MapPin, Package, ShoppingBag, ShoppingCart, User } from "lucide-react";
 import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useCartStore } from "@/ui/state/cartStore";
@@ -9,6 +9,7 @@ const items = [
   { path: "/catalog", label: "Каталог", Icon: ShoppingBag },
   { path: "/cart", label: "Корзина", Icon: ShoppingCart },
   { path: "/orders", label: "Заказы", Icon: Package },
+  { path: "/stores", label: "Магазины", Icon: MapPin },
   { path: "/profile", label: "Профиль", Icon: User },
 ];
 
@@ -20,7 +21,7 @@ export function BottomNav() {
 
   return (
     <div className="border-t border-gray-200 bg-white">
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-6">
         {items.map(({ path, label, Icon }) => {
           const active = location.pathname === path;
           return (

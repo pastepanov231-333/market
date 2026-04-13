@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Header } from "@/ui/shared/Header";
 import { QuantityStepper } from "@/ui/shared/QuantityStepper";
@@ -5,12 +6,35 @@ import { useCartStore } from "@/ui/state/cartStore";
 import { products, sellers } from "@/ui/state/mock";
 import { Star } from "lucide-react";
 
+// Category tabs configuration per seller type
+const FOOD_CATEGORIES = [
+  { id: "all", label: "Все товары" },
+  { id: "hot_dishes", label: "Горячие блюда" },
+  { id: "rolls", label: "Роллы" },
+  { id: "sushi", label: "Суши" },
+  { id: "pizza", label: "Пицца" },
+  { id: "sets", label: "Сеты" },
+  { id: "drinks", label: "Напитки" },
+  { id: "salads", label: "Салаты" },
+];
+
+// Which sellers are restaurants (show food category tabs)
+const RESTAURANT_SELLER_IDS = new Set(["seller-5", "seller-6", "seller-7", "seller-8"]);
+
 export function SellerPage() {
   const nav = useNavigate();
   const { id } = useParams();
-  
+  const [activeCategory, setActiveCategory] = useState("all");
+
   const seller = sellers.find(s => s.id === id);
   const sellerProducts = products.filter(p => p.sellerId === id);
+
+  const isRestaurant = id ? RESTAURANT_SELLER_IDS.has(id) : false;
+
+  // Filter products based on active category
+  const filteredProducts = activeCategory === "all"
+    ? sellerProducts
+    : sellerProducts.filter(p => p.categoryIds.includes(activeCategory));
 
   const addProduct = useCartStore((s) => s.addProduct);
   const increase = useCartStore((s) => s.increase);
@@ -33,12 +57,15 @@ export function SellerPage() {
   return (
     <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
       {/* Dynamic Cover/Banner Component */}
-      <div className="relative h-48 sm:h-56 w-full object-cover bg-gradient-to-r from-green-400 to-green-600">
+      <div className="relative h-48 sm:h-56 w-full bg-gradient-to-r from-green-400 to-green-600"
+           style={seller.bannerUrl?.includes("metizych") ? { background: "#f5c518" } : undefined}>
         {seller.bannerUrl && (
           <img 
             src={seller.bannerUrl} 
             alt={seller.name} 
-            className="absolute inset-0 w-full h-full object-cover"
+            className={`absolute inset-0 w-full h-full ${
+              seller.bannerUrl.includes("metizych") ? "object-contain" : "object-cover"
+            }`}
           />
         )}
         <div className="absolute inset-0 bg-black/5" />
@@ -79,15 +106,42 @@ export function SellerPage() {
         )}
       </div>
 
+      {/* Category Tabs for restaurants */}
+      {isRestaurant && (
+        <div className="mt-5 px-4">
+          <div
+            className="flex gap-2 overflow-x-auto pb-1"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {FOOD_CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`whitespace-nowrap px-4 py-2 rounded-2xl text-sm font-medium border transition-colors flex-shrink-0 ${
+                    isActive
+                      ? "bg-[var(--fresh-green)] text-white border-[var(--fresh-green)]"
+                      : "bg-white text-gray-700 border-gray-200"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Assortment */}
-      <div className="px-4 py-6">
+      <div className="px-4 py-4">
         <h2 className="text-xl font-bold mb-4">Ассортимент</h2>
         <div className="grid grid-cols-2 gap-3">
-          {sellerProducts.map((p) => (
+          {filteredProducts.map((p) => (
             <div key={p.id} className="bg-white rounded-2xl border border-gray-100 p-3 text-left">
               <div className="aspect-square rounded-xl bg-gray-100 overflow-hidden mb-3">
                 <button onClick={() => nav(`/product/${p.id}`)} className="w-full h-full">
-                  <img src={p.images[0]} alt={p.title} className="w-full h-full object-cover" />
+                  <img src={p.images[0]} alt={p.title} className="w-full h-full object-contain p-2" />
                 </button>
               </div>
               <p className="text-sm text-gray-900 line-clamp-2 min-h-[40px] mb-1">
@@ -113,9 +167,9 @@ export function SellerPage() {
           ))}
         </div>
         
-        {sellerProducts.length === 0 && (
+        {filteredProducts.length === 0 && (
           <div className="text-center py-10 text-gray-400">
-            Здесь пока нет товаров
+            {activeCategory === "all" ? "Здесь пока нет товаров" : "В этой категории пока нет товаров"}
           </div>
         )}
       </div>

@@ -57,9 +57,9 @@ export function ProductDetails() {
         }
       />
 
-      <div className="relative bg-white">
+      <div className="relative bg-white pb-6 pt-4">
         <div className="aspect-square">
-          <img src={product.images[imageIndex]} alt={product.title} className="w-full h-full object-cover" />
+          <img src={product.images[imageIndex]} alt={product.title} className="w-full h-full object-contain p-6" />
         </div>
         {product.images.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
