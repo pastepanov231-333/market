@@ -18,8 +18,23 @@ const FOOD_CATEGORIES = [
   { id: "salads", label: "Салаты" },
 ];
 
-// Which sellers are restaurants (show food category tabs)
 const RESTAURANT_SELLER_IDS = new Set(["seller-5", "seller-6", "seller-7", "seller-8"]);
+const CLOTHES_SELLER_IDS = new Set(["seller-3", "seller-11", "seller-12"]);
+
+const CLOTHES_CATEGORIES = [
+  { id: "all", label: "Все товары" },
+  { id: "outerwear", label: "Верхняя одежда" },
+  { id: "tshirts", label: "Футболки и майки" },
+  { id: "shirts", label: "Рубашки" },
+  { id: "sweaters", label: "Свитеры и толстовки" },
+  { id: "jeans", label: "Джинсы" },
+  { id: "pants", label: "Брюки" },
+  { id: "sportswear", label: "Спортивная одежда" },
+  { id: "shoes", label: "Обувь" },
+  { id: "underwear", label: "Нижнее белье и носки" },
+  { id: "headwear", label: "Головные уборы" },
+  { id: "accessories", label: "Аксессуары" },
+];
 
 export function SellerPage() {
   const nav = useNavigate();
@@ -30,6 +45,10 @@ export function SellerPage() {
   const sellerProducts = products.filter(p => p.sellerId === id);
 
   const isRestaurant = id ? RESTAURANT_SELLER_IDS.has(id) : false;
+  const isClothesStore = id ? CLOTHES_SELLER_IDS.has(id) : false;
+  
+  const showCategories = isRestaurant || isClothesStore;
+  const categoriesToShow = isRestaurant ? FOOD_CATEGORIES : (isClothesStore ? CLOTHES_CATEGORIES : []);
 
   // Filter products based on active category
   const filteredProducts = activeCategory === "all"
@@ -106,14 +125,14 @@ export function SellerPage() {
         )}
       </div>
 
-      {/* Category Tabs for restaurants */}
-      {isRestaurant && (
+      {/* Category Tabs */}
+      {showCategories && (
         <div className="mt-5 px-4">
           <div
             className="flex gap-2 overflow-x-auto pb-1"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {FOOD_CATEGORIES.map((cat) => {
+            {categoriesToShow.map((cat) => {
               const isActive = activeCategory === cat.id;
               return (
                 <button

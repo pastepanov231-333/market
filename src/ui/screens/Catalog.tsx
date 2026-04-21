@@ -13,7 +13,7 @@ type MenuNode = { id: string; title: string; emoji: string; subtitle: string; is
 const mainVitrines: MenuNode[] = [
   { id: "all", title: "Все товары", emoji: "🛍️", subtitle: "Полный каталог маркетплейса" },
   { id: "foodMenu", title: "Еда", emoji: "🍎", subtitle: "Свежие продукты и готовые блюда", isFolder: true },
-  { id: "clothes", title: "Одежда", emoji: "👕", subtitle: "Одежда и аксессуары" },
+  { id: "clothesMenu", title: "Одежда", emoji: "👕", subtitle: "Одежда и аксессуары", isFolder: true },
   { id: "toolsMenu", title: "Инструменты", emoji: "🔨", subtitle: "Для ремонта и строительства", isFolder: true },
 ];
 
@@ -30,6 +30,11 @@ const restaurantVitrines: MenuNode[] = [
   { id: "seller-8", title: "Грузинский Дворик", emoji: "🥟", subtitle: "Лучшие хинкали и хачапури" },
 ];
 
+const clothesVitrines: MenuNode[] = [
+  { id: "seller-11", title: "Trend Zone", emoji: "🧥", subtitle: "Модная одежда для мужчин и женщин" },
+  { id: "seller-12", title: "Modern Style", emoji: "👟", subtitle: "Брендовая обувь и аксессуары" },
+  { id: "seller-3", title: "Urban Wear", emoji: "🧢", subtitle: "Стильная одежда для жизни в городе" },
+];
 const toolsVitrines: MenuNode[] = [
   { id: "tools", title: "Инструменты", emoji: "🔧", subtitle: "Для ремонта" },
   { id: "components", title: "Комплектующие", emoji: "⚙️", subtitle: "Для бытовой техники" },
@@ -38,7 +43,7 @@ const toolsVitrines: MenuNode[] = [
 
 export function Catalog() {
   const nav = useNavigate();
-  const [viewLevel, setViewLevel] = useState<"root" | "foodMenu" | "restaurantsMenu" | "toolsMenu" | "products">("root");
+  const [viewLevel, setViewLevel] = useState<"root" | "foodMenu" | "restaurantsMenu" | "clothesMenu" | "toolsMenu" | "products">("root");
   const [selected, setSelected] = useState<VitrineType | null>(null);
   
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -108,6 +113,8 @@ export function Catalog() {
       setViewLevel("foodMenu");
     } else if (node.id === "restaurantsMenu") {
       setViewLevel("restaurantsMenu");
+    } else if (node.id === "clothesMenu") {
+      setViewLevel("clothesMenu");
     } else if (node.id === "toolsMenu") {
       setViewLevel("toolsMenu");
     } else {
@@ -217,6 +224,9 @@ export function Catalog() {
 
   if (viewLevel === "restaurantsMenu") {
     return renderRestaurantGrid(restaurantVitrines, "Рестораны/ФастФуд", "Доставка из любимых заведений", () => setViewLevel("foodMenu"));
+  }
+  if (viewLevel === "clothesMenu") {
+    return renderRestaurantGrid(clothesVitrines, "Одежда", "Популярные магазины одежды", () => setViewLevel("root"));
   }
   if (viewLevel === "toolsMenu") {
     return renderGrid(toolsVitrines, "Инструменты", "Всё для ремонта и техники", () => setViewLevel("root"), "toolsMenu");
