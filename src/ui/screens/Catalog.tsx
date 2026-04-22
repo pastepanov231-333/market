@@ -32,8 +32,8 @@ const restaurantVitrines: MenuNode[] = [
 
 const clothesVitrines: MenuNode[] = [
   { id: "seller-11", title: "Trend Zone", emoji: "🧥", subtitle: "Модная одежда для мужчин и женщин" },
-  { id: "seller-12", title: "Modern Style", emoji: "👟", subtitle: "Брендовая обувь и аксессуары" },
-  { id: "seller-3", title: "Urban Wear", emoji: "🧢", subtitle: "Стильная одежда для жизни в городе" },
+  { id: "seller-12", title: "Roobl", emoji: "👟", subtitle: "Брендовая обувь и аксессуары" },
+  { id: "seller-3", title: "Пешеход", emoji: "🧢", subtitle: "Стильная одежда для жизни в городе" },
 ];
 const toolsVitrines: MenuNode[] = [
   { id: "tools", title: "Инструменты", emoji: "🔧", subtitle: "Для ремонта" },

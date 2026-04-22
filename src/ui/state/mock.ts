@@ -48,14 +48,14 @@ export const sellers: Seller[] = [
   },
   { 
     id: "seller-3", 
-    name: "Urban Wear", 
+    name: "Пешеход", 
     commissionRate: 0.1,
     logo: "/assets/urban_wear/logo.png",
     bannerUrl: "/assets/urban_wear/banner.png",
     rating: 4.5,
     reviewsCount: 300,
     deliveryEtaMinutes: 120,
-    description: "Стильная одежда и аксессуары для комфортной жизни в городе."
+    description: "Надёжная обувь и одежда для длительных прогулок и городской жизни."
   },
   { 
     id: "seller-4", 
@@ -143,14 +143,14 @@ export const sellers: Seller[] = [
   },
   { 
     id: "seller-12", 
-    name: "Modern Style", 
+    name: "Roobl", 
     commissionRate: 0.15,
     logo: "/assets/modern_style/logo.png",
     bannerUrl: "/assets/modern_style/banner.png",
     rating: 4.9,
     reviewsCount: 345,
     deliveryEtaMinutes: 90,
-    description: "Брендовая обувь, головные уборы и аксессуары на любой сезон."
+    description: "Премиальная одежда и аксессуары для тех, кто ценит качество и стиль."
   },
 ];
 
@@ -420,6 +420,7 @@ export const products: Product[] = [
     inStock: true,
     deliveryEtaMinutes: 30,
     description: "Лёгкие классические кроссовки — подойдут к любому образу.",
+    attributes: { size: ["39", "40", "41", "42", "43", "44"] },
   },
   {
     id: "clothes-uw-3",
@@ -471,6 +472,7 @@ export const products: Product[] = [
     inStock: true,
     deliveryEtaMinutes: 90,
     description: "Стильная кепка с регулируемым ремешком — подходит для любого размера головы.",
+    attributes: { size: ["One Size"] },
   },
   {
     id: "clothes-ms-2",
@@ -485,6 +487,7 @@ export const products: Product[] = [
     reviewsCount: 17,
     inStock: true,
     deliveryEtaMinutes: 90,
+    attributes: { size: ["One Size"] },
   },
   {
     id: "clothes-ms-3",
@@ -501,12 +504,13 @@ export const products: Product[] = [
     reviewsCount: 9,
     inStock: true,
     deliveryEtaMinutes: 90,
+    attributes: { size: ["One Size"] },
   },
   {
     id: "clothes-ms-4",
     sellerId: "seller-12",
     vitrineType: "clothes",
-    categoryIds: ["tshirts"],
+    categoryIds: ["outerwear"],
     title: "Худи чёрное",
     price: 2200,
     images: ["/assets/modern_style/hoody_black.png"],
@@ -523,7 +527,7 @@ export const products: Product[] = [
     id: "clothes-ms-5",
     sellerId: "seller-12",
     vitrineType: "clothes",
-    categoryIds: ["tshirts"],
+    categoryIds: ["outerwear"],
     title: "Худи синее",
     price: 2200,
     oldPrice: 2600,
@@ -550,6 +554,7 @@ export const products: Product[] = [
     reviewsCount: 103,
     inStock: true,
     deliveryEtaMinutes: 90,
+    attributes: { size: ["36-39", "40-43"] },
   },
   {
     id: "clothes-ms-7",
@@ -564,6 +569,7 @@ export const products: Product[] = [
     reviewsCount: 88,
     inStock: true,
     deliveryEtaMinutes: 90,
+    attributes: { size: ["36-39", "40-43"] },
   },
   {
     id: "tools-1",
@@ -971,10 +977,26 @@ export const filterConfig: Record<string, VitrineFilterConfig> = {
         id: "tshirts",
         label: "Футболки",
         attributes: [
-          { id: "size", label: "Размер", options: [{ id: "s", label: "S" }, { id: "m", label: "M" }, { id: "l", label: "L" }] },
+          { id: "size", label: "Размер", options: [{ id: "S", label: "S" }, { id: "M", label: "M" }, { id: "L", label: "L" }, { id: "XL", label: "XL" }] },
           { id: "color", label: "Цвет", options: [{ id: "white", label: "Белый" }, { id: "black", label: "Черный" }] },
         ],
       },
+      {
+        id: "outerwear",
+        label: "Верхняя одежда",
+        attributes: [
+          { id: "size", label: "Размер", options: [{ id: "S", label: "S" }, { id: "M", label: "M" }, { id: "L", label: "L" }, { id: "XL", label: "XL" }, { id: "XXL", label: "XXL" }] },
+        ],
+      },
+      {
+        id: "shoes",
+        label: "Обувь",
+        attributes: [
+          { id: "size", label: "Размер", options: [{ id: "38", label: "38" }, { id: "39", label: "39" }, { id: "40", label: "40" }, { id: "41", label: "41" }, { id: "42", label: "42" }, { id: "43", label: "43" }, { id: "44", label: "44" }] },
+        ],
+      },
+      { id: "headwear", label: "Головные уборы" },
+      { id: "accessories", label: "Аксессуары" },
     ],
   },
   tools: {
