@@ -11,8 +11,13 @@ export function RootLayout() {
   return (
     <div className="bg-[var(--fresh-bg)]">
       <PhoneFrame>
-        <div className="flex-1 flex flex-col min-h-0 bg-[var(--fresh-bg)]">
-        <div className={`flex-1 min-h-0 ${location.pathname === "/stores" ? "overflow-hidden flex flex-col" : "overflow-y-auto"}`}>
+        {/* Отступ сверху защищает контент от Dynamic Island / челки.
+            На ПК (где кант виден) safe-area = 0, поэтому лишних отступов не будет. */}
+        <div
+          className="flex-1 flex flex-col min-h-0 bg-[var(--fresh-bg)]"
+          style={{ paddingTop: "env(safe-area-inset-top)" }}
+        >
+          <div className={`flex-1 min-h-0 ${location.pathname === "/stores" ? "overflow-hidden flex flex-col" : "overflow-y-auto"}`}>
             <Outlet />
           </div>
           {!hideNav && (
@@ -25,4 +30,5 @@ export function RootLayout() {
     </div>
   );
 }
+
 

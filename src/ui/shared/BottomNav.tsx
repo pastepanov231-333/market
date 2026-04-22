@@ -20,7 +20,10 @@ export function BottomNav() {
   const totalQty = useMemo(() => getTotalQty(cartItems), [cartItems]);
 
   return (
-    <div className="border-t border-gray-200 bg-white">
+    <div
+      className="border-t border-gray-200 bg-white"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
       <div className="grid grid-cols-6">
         {items.map(({ path, label, Icon }) => {
           const active = location.pathname === path;
