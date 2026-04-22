@@ -12,6 +12,15 @@ export type Seller = {
   bannerUrl?: string;
 };
 
+export type Review = {
+  id: string;
+  userName: string;
+  rating: number;
+  text: string;
+  date: string;
+  avatar?: string;
+};
+
 export type Product = {
   id: string;
   sellerId: string;
@@ -25,6 +34,7 @@ export type Product = {
   unitLabel: string;
   rating?: number;
   reviewsCount?: number;
+  reviews?: Review[];
   badge?: string;
   inStock: boolean;
   deliveryEtaMinutes?: number;

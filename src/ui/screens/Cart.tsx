@@ -103,7 +103,14 @@ export function Cart() {
                   <p className="text-sm font-medium text-gray-900 mb-1 line-clamp-2">
                     {item.titleSnapshot}
                   </p>
-                  <p className="text-xs text-gray-500">{item.unitLabelSnapshot}</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <p className="text-xs text-gray-500">{item.unitLabelSnapshot}</p>
+                    {item.variantId && (
+                      <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-600">
+                        Размер: {item.variantId}
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-2 flex items-center justify-between">
                     <span className="font-bold">{item.priceSnapshot} ₽</span>
                     <QuantityStepper
@@ -143,7 +150,14 @@ export function Cart() {
                       <p className="text-sm font-medium text-gray-900 line-clamp-2">
                         {item.titleSnapshot}
                       </p>
-                      <p className="text-xs text-gray-500">{item.unitLabelSnapshot}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-xs text-gray-500">{item.unitLabelSnapshot}</p>
+                        {item.variantId && (
+                          <span className="px-1.5 py-0.5 bg-gray-100 rounded text-[10px] font-bold text-gray-600">
+                            Размер: {item.variantId}
+                          </span>
+                        )}
+                      </div>
                       <div className="mt-1 flex items-center justify-between">
                         <span className="font-semibold">{item.priceSnapshot} ₽</span>
                         <QuantityStepper

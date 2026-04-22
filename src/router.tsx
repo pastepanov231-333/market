@@ -14,6 +14,7 @@ import { Orders } from "@/ui/screens/Orders";
 import { Profile } from "@/ui/screens/Profile";
 import { SellerPage } from "@/ui/screens/SellerPage";
 import { Stores } from "@/ui/screens/Stores";
+import { Reviews } from "@/ui/screens/Reviews";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       { path: "catalog", Component: Catalog },
       { path: "search", Component: Search },
       { path: "product/:id", Component: ProductDetails },
+      { path: "product/:id/reviews", Component: Reviews },
       { path: "cart", Component: Cart },
       { path: "checkout", Component: Checkout },
       { path: "tracking/:orderId", Component: Tracking },

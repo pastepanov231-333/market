@@ -2,22 +2,13 @@ import { Search as SearchIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { Header } from "@/ui/shared/Header";
-import { QuantityStepper } from "@/ui/shared/QuantityStepper";
-import { useCartStore } from "@/ui/state/cartStore";
+import { ProductCard } from "@/ui/shared/ProductCard";
 import { products } from "@/ui/state/mock";
 
 export function Home() {
   const nav = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const addProduct = useCartStore((s) => s.addProduct);
-  const increase = useCartStore((s) => s.increase);
-  const decrease = useCartStore((s) => s.decrease);
-  const getItemQty = useCartStore((s) => s.getItemQty);
-  const items = useCartStore((s) => s.items);
-
-  const getItemId = (productId: string, sellerId: string) =>
-    items.find((i) => i.productId === productId && i.sellerId === sellerId)?.id;
 
   const filtered = useMemo(() => {
     let result = products;
@@ -35,7 +26,7 @@ export function Home() {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20 text-blue-900">
       <Header title="Главная" onBack={() => nav("/addresses")} />
 
       <div className="px-4 py-3 bg-white z-20 relative">
@@ -98,36 +89,12 @@ export function Home() {
         <h2 className="text-xl font-bold text-gray-900 mb-4">Рекомендуем для вас</h2>
         <div className="grid grid-cols-2 gap-3">
           {filtered.map((p) => (
-            <div key={p.id} className="bg-white rounded-2xl border border-gray-100 p-3 text-left">
-              <div className="aspect-square rounded-xl bg-gray-100 overflow-hidden mb-3">
-                <button onClick={() => nav(`/product/${p.id}`)} className="w-full h-full">
-                  <img src={p.images[0]} alt={p.title} className="w-full h-full object-cover" />
-                </button>
-              </div>
-              <p className="text-sm text-gray-900 line-clamp-2 min-h-[40px] mb-1">
-                {p.title}
-              </p>
-              <p className="text-xs text-gray-500 mb-2">{p.unitLabel}</p>
-              <div className="flex items-center justify-between">
-                <div className="font-bold">{p.price} ₽</div>
-                <QuantityStepper
-                  value={getItemQty(p.id, p.sellerId)}
-                  onIncrease={() => {
-                    const itemId = getItemId(p.id, p.sellerId);
-                    if (itemId) increase(itemId);
-                    else addProduct(p);
-                  }}
-                  onDecrease={() => {
-                    const itemId = getItemId(p.id, p.sellerId);
-                    if (itemId) decrease(itemId);
-                  }}
-                />
-              </div>
-            </div>
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
       </div>
     </div>
   );
 }
+
 

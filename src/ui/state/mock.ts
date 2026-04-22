@@ -1,4 +1,28 @@
-import type { Product, Seller, VitrineFilterConfig } from "@/ui/state/types";
+import type { Product, Seller, VitrineFilterConfig, Review } from "@/ui/state/types";
+
+const REVIEW_USERS = ["Александр", "Мария", "Дмитрий", "Елена", "Сергей", "Анна", "Иван", "Ольга", "Павел", "Татьяна"];
+const REVIEW_TEXTS = [
+  "Отличное качество, всё подошло идеально!",
+  "Доставили быстро, упаковка целая. Рекомендую.",
+  "В жизни выглядит даже лучше, чем на фото.",
+  "Немного маломерит, но в целом всё супер.",
+  "За свою цену — находка. Буду заказывать ещё.",
+  "Качество материалов на высоте, очень приятно пользоваться.",
+  "Цвет немного отличается, но не критично.",
+  "Всегда покупаю у этого продавца, никогда не подводили.",
+  "Очень удобная вещь, стоит своих денег.",
+  "Материал приятный к телу, швы ровные."
+];
+
+function generateReviews(count: number): Review[] {
+  return Array.from({ length: count }).map((_, i) => ({
+    id: `rev-${Math.random().toString(36).substr(2, 9)}`,
+    userName: REVIEW_USERS[Math.floor(Math.random() * REVIEW_USERS.length)],
+    rating: 4 + Math.floor(Math.random() * 2), // 4 or 5 stars
+    text: REVIEW_TEXTS[Math.floor(Math.random() * REVIEW_TEXTS.length)],
+    date: new Date(Date.now() - Math.floor(Math.random() * 1000000000)).toLocaleDateString("ru-RU"),
+  }));
+}
 
 export const sellers: Seller[] = [
   { 
@@ -151,6 +175,7 @@ export const products: Product[] = [
     description:
       "Натуральное пастеризованное молоко высшего качества. Произведено из отборного сырья.",
     attributes: { fat: ["high"] },
+    reviews: generateReviews(5),
   },
   {
     id: "food-2",
@@ -168,6 +193,7 @@ export const products: Product[] = [
     inStock: true,
     deliveryEtaMinutes: 15,
     attributes: { flour: ["rye"] },
+    reviews: generateReviews(3),
   },
   {
     id: "food-3",
@@ -187,6 +213,7 @@ export const products: Product[] = [
     inStock: true,
     deliveryEtaMinutes: 15,
     attributes: { color: ["green"], package: ["loose"] },
+    reviews: generateReviews(12),
   },
   {
     id: "food-eggs-1",
@@ -235,7 +262,8 @@ export const products: Product[] = [
     badge: "-30%",
     inStock: true,
     deliveryEtaMinutes: 30,
-    attributes: { size: ["m"], color: ["white"] },
+    attributes: { size: ["S", "M", "L", "XL"], color: ["white"] },
+    reviews: generateReviews(8),
   },
   // ── Trend Zone (seller-11) ─────────────────────────────────────────────
   {
@@ -253,6 +281,8 @@ export const products: Product[] = [
     inStock: true,
     deliveryEtaMinutes: 120,
     description: "Лёгкая демисезонная куртка для прохладной погоды. Ветрозащитная пропитка.",
+    attributes: { size: ["M", "L", "XL", "XXL"] },
+    reviews: generateReviews(4),
   },
   {
     id: "clothes-tz-2",
@@ -268,6 +298,8 @@ export const products: Product[] = [
     inStock: true,
     deliveryEtaMinutes: 120,
     description: "Яркая куртка с авторским принтом — выделись из толпы.",
+    attributes: { size: ["S", "M", "L"] },
+    reviews: generateReviews(6),
   },
   {
     id: "clothes-tz-3",
@@ -399,8 +431,10 @@ export const products: Product[] = [
     unitLabel: "42",
     rating: 4.8,
     reviewsCount: 74,
+    attributes: { size: ["39", "40", "41", "42", "43", "44"] },
     inStock: true,
     deliveryEtaMinutes: 30,
+    reviews: generateReviews(10),
   },
   {
     id: "clothes-uw-4",
@@ -415,8 +449,10 @@ export const products: Product[] = [
     unitLabel: "41",
     rating: 4.7,
     reviewsCount: 38,
+    attributes: { size: ["38", "39", "40", "41", "42"] },
     inStock: true,
     deliveryEtaMinutes: 30,
+    reviews: generateReviews(5),
   },
 
   // ── Modern Style (seller-12) ───────────────────────────────────────────
@@ -479,7 +515,8 @@ export const products: Product[] = [
     inStock: true,
     deliveryEtaMinutes: 90,
     description: "Тёплое худи из плотного флиса с карманом-кенгуру.",
-    attributes: { size: ["l"], color: ["black"] },
+    attributes: { size: ["S", "M", "L", "XL"], color: ["black"] },
+    reviews: generateReviews(15),
   },
   {
     id: "clothes-ms-5",
@@ -496,7 +533,8 @@ export const products: Product[] = [
     reviewsCount: 44,
     inStock: true,
     deliveryEtaMinutes: 90,
-    attributes: { size: ["m"], color: ["white"] },
+    attributes: { size: ["S", "M", "L", "XL"], color: ["white"] },
+    reviews: generateReviews(8),
   },
   {
     id: "clothes-ms-6",
@@ -786,14 +824,8 @@ export const products: Product[] = [
     sellerId: "seller-10",
     vitrineType: "electronics",
     categoryIds: ["electronics", "gadgets"],
-    title: "Фен профессиональный",
-    price: 3500,
-    images: ["https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=800&q=60"],
-    unitLabel: "1 шт.",
-    rating: 4.7,
-    reviewsCount: 15,
-    inStock: true,
     description: "Мощный фен с несколькими режимами и ионизацией.",
+    reviews: generateReviews(10),
   },
   {
     id: "tech-2",
@@ -822,6 +854,7 @@ export const products: Product[] = [
     reviewsCount: 42,
     inStock: true,
     description: "Быстрая зарядка 20W для смартфонов и планшетов.",
+    reviews: generateReviews(30),
   },
   {
     id: "tech-4",

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Header } from "@/ui/shared/Header";
-import { QuantityStepper } from "@/ui/shared/QuantityStepper";
-import { useCartStore } from "@/ui/state/cartStore";
+import { ProductCard } from "@/ui/shared/ProductCard";
 import { products, sellers } from "@/ui/state/mock";
 import { Star } from "lucide-react";
 
@@ -54,15 +53,6 @@ export function SellerPage() {
   const filteredProducts = activeCategory === "all"
     ? sellerProducts
     : sellerProducts.filter(p => p.categoryIds.includes(activeCategory));
-
-  const addProduct = useCartStore((s) => s.addProduct);
-  const increase = useCartStore((s) => s.increase);
-  const decrease = useCartStore((s) => s.decrease);
-  const getItemQty = useCartStore((s) => s.getItemQty);
-  const items = useCartStore((s) => s.items);
-
-  const getItemId = (productId: string, sellerId: string) =>
-    items.find((i) => i.productId === productId && i.sellerId === sellerId)?.id;
 
   if (!seller) {
     return (
@@ -157,32 +147,7 @@ export function SellerPage() {
         <h2 className="text-xl font-bold mb-4">Ассортимент</h2>
         <div className="grid grid-cols-2 gap-3">
           {filteredProducts.map((p) => (
-            <div key={p.id} className="bg-white rounded-2xl border border-gray-100 p-3 text-left">
-              <div className="aspect-square rounded-xl bg-gray-100 overflow-hidden mb-3">
-                <button onClick={() => nav(`/product/${p.id}`)} className="w-full h-full">
-                  <img src={p.images[0]} alt={p.title} className="w-full h-full object-contain p-2" />
-                </button>
-              </div>
-              <p className="text-sm text-gray-900 line-clamp-2 min-h-[40px] mb-1">
-                {p.title}
-              </p>
-              <p className="text-xs text-gray-500 mb-2">{p.unitLabel}</p>
-              <div className="flex items-center justify-between">
-                <div className="font-bold">{p.price} ₽</div>
-                <QuantityStepper
-                  value={getItemQty(p.id, p.sellerId)}
-                  onIncrease={() => {
-                    const itemId = getItemId(p.id, p.sellerId);
-                    if (itemId) increase(itemId);
-                    else addProduct(p);
-                  }}
-                  onDecrease={() => {
-                    const itemId = getItemId(p.id, p.sellerId);
-                    if (itemId) decrease(itemId);
-                  }}
-                />
-              </div>
-            </div>
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
         
@@ -195,3 +160,4 @@ export function SellerPage() {
     </div>
   );
 }
+
