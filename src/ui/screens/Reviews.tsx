@@ -79,10 +79,6 @@ export function Reviews() {
           </div>
         </div>
 
-        <button className="w-full py-4 bg-gray-50 rounded-2xl text-[var(--fresh-green)] font-bold text-sm flex items-center justify-center gap-2 hover:bg-green-50 transition-colors">
-          <MessageSquare size={18} />
-          Написать отзыв
-        </button>
       </div>
 
       <div className="px-4 py-6">

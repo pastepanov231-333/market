@@ -13,7 +13,7 @@ const mainVitrines: MenuNode[] = [
   { id: "all", title: "Все товары", emoji: "🛍️", subtitle: "Полный каталог маркетплейса" },
   { id: "foodMenu", title: "Еда", emoji: "🍎", subtitle: "Свежие продукты и готовые блюда", isFolder: true },
   { id: "clothesMenu", title: "Одежда", emoji: "👕", subtitle: "Одежда и аксессуары", isFolder: true },
-  { id: "electronics", title: "Электроника", emoji: "📱", subtitle: "Гаджеты и техника" },
+  { id: "electronicsMenu", title: "Электроника", emoji: "📱", subtitle: "Гаджеты и техника", isFolder: true },
   { id: "toolsMenu", title: "Инструменты", emoji: "🔨", subtitle: "Для ремонта и строительства", isFolder: true },
 ];
 
@@ -39,10 +39,13 @@ const toolsVitrines: MenuNode[] = [
   { id: "tools", title: "Инструменты", emoji: "🔧", subtitle: "Для ремонта" },
   { id: "components", title: "Комплектующие", emoji: "⚙️", subtitle: "Для бытовой техники" },
 ];
+const electronicsVitrines: MenuNode[] = [
+  { id: "seller-10", title: "Плазма", emoji: "📱", subtitle: "Гаджеты и техника" },
+];
 
 export function Catalog() {
   const nav = useNavigate();
-  const [viewLevel, setViewLevel] = useState<"root" | "foodMenu" | "restaurantsMenu" | "clothesMenu" | "toolsMenu" | "products">("root");
+  const [viewLevel, setViewLevel] = useState<"root" | "foodMenu" | "restaurantsMenu" | "clothesMenu" | "toolsMenu" | "electronicsMenu" | "products">("root");
   const [selected, setSelected] = useState<VitrineType | null>(null);
   
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -107,6 +110,8 @@ export function Catalog() {
       setViewLevel("clothesMenu");
     } else if (node.id === "toolsMenu") {
       setViewLevel("toolsMenu");
+    } else if (node.id === "electronicsMenu") {
+      setViewLevel("electronicsMenu");
     } else {
       setSelected(node.id as VitrineType);
       setViewLevel("products");
@@ -121,6 +126,8 @@ export function Catalog() {
       setViewLevel("foodMenu");
     } else if (selected && ["tools", "components"].includes(selected)) {
       setViewLevel("toolsMenu");
+    } else if (viewLevel === "electronicsMenu") {
+      setViewLevel("root");
     } else {
       setViewLevel("root");
     }
@@ -217,6 +224,9 @@ export function Catalog() {
   }
   if (viewLevel === "clothesMenu") {
     return renderRestaurantGrid(clothesVitrines, "Одежда", "Популярные магазины одежды", () => setViewLevel("root"));
+  }
+  if (viewLevel === "electronicsMenu") {
+    return renderRestaurantGrid(electronicsVitrines, "Электроника", "Магазины электроники", () => setViewLevel("root"));
   }
   if (viewLevel === "toolsMenu") {
     return renderGrid(toolsVitrines, "Инструменты", "Всё для ремонта и техники", () => setViewLevel("root"), "toolsMenu");
@@ -316,7 +326,7 @@ export function Catalog() {
             </div>
             
             <div className="flex-1 overflow-y-auto p-5 pb-32">
-               {selected !== "all" && filterConfig[selected] ? (
+               {selected !== "all" && selected && filterConfig[selected] ? (
                  <div className="mb-6">
                    <h3 className="font-semibold mb-3">Подкатегория</h3>
                    <div className="flex flex-wrap gap-2">
@@ -337,7 +347,7 @@ export function Catalog() {
                  </div>
                ) : null}
                
-               {selected !== "all" && filterConfig[selected] && tempFilters.categoryId && (
+               {selected !== "all" && selected && filterConfig[selected] && tempFilters.categoryId && (
                  <>
                    {filterConfig[selected].categories.find((c: any) => c.id === tempFilters.categoryId)?.attributes?.map((attr: any) => (
                      <div key={attr.id} className="mb-6">
