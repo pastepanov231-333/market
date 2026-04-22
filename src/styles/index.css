@@ -5,6 +5,29 @@ html,
 body,
 #root {
   height: 100%;
+  overscroll-behavior-y: none; /* Предотвращает оттягивание экрана за пределы (pull-to-refresh) на iOS */
+  -webkit-tap-highlight-color: transparent; /* Убирает серое мигание при клике на элементы */
+  -webkit-touch-callout: none; /* Отключает меню при долгом нажатии */
+}
+
+/* Избегаем заезда элементов на "челку" и "домашнюю полосу" (Dynamic Island / Home Indicator) */
+#root {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Делаем так, чтобы текст нельзя было выделить как на обычных сайтах (приближает к нативному приложению) */
+* {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Оставляем возможность выделять текст только в полях ввода */
+input, textarea {
+  user-select: auto;
+  -webkit-user-select: auto;
 }
 
 /* Hide scrollbars globally for a native app feel */
