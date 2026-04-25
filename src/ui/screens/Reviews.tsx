@@ -36,7 +36,7 @@ export function Reviews() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-10">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title="Отзывы" onBack={() => nav(-1)} />
 
       <div className="bg-white px-4 py-6 border-b border-gray-100">

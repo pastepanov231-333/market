@@ -47,7 +47,7 @@ export function Addresses() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title="Адрес доставки" onBack={() => nav("/register")} />
 
       <div className="px-4 py-6">

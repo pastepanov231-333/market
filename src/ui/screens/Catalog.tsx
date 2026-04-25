@@ -135,7 +135,7 @@ export function Catalog() {
   };
 
   const renderGrid = (items: MenuNode[], title: string, subtitle: string, onBack: () => void, currentViewLevel?: string) => (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title={title} onBack={onBack} />
       <div className="px-4 py-6 bg-white mb-2">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">{title === "Каталог" ? "Добро пожаловать!" : title}</h1>
@@ -169,7 +169,7 @@ export function Catalog() {
     return renderGrid(foodVitrines, "Еда", "Продукты и блюда", () => setViewLevel("root"), "foodMenu");
   }
   const renderRestaurantGrid = (items: MenuNode[], title: string, subtitle: string, onBack: () => void) => (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title={title} onBack={onBack} />
       <div className="px-4 py-6 bg-white mb-2">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">{title}</h1>
@@ -233,7 +233,7 @@ export function Catalog() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title="Каталог" onBack={handleBackToNav} />
 
       <div className="bg-white px-4 py-4 border-b border-gray-100">

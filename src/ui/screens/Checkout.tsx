@@ -30,7 +30,7 @@ export function Checkout() {
 
   if (groupedBySeller.length === 0) {
     return (
-      <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+      <div className="bg-[var(--fresh-bg)]">
         <Header title="Оформление заказа" onBack={() => nav("/cart")} />
         <div className="px-4 py-8">
           <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
@@ -65,7 +65,7 @@ export function Checkout() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title="Оформление заказа" onBack={() => nav("/cart")} />
       <div className="px-4 py-6 space-y-3">
         <div className="bg-white rounded-2xl border border-gray-100 p-4">

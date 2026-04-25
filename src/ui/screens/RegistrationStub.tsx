@@ -11,7 +11,7 @@ export function RegistrationStub() {
   const canContinue = fullName.trim() && phone.trim() && email.trim();
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)]">
+    <div className="bg-[var(--fresh-bg)]">
       <div className="px-4 pt-8 pb-4">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Регистрация</h1>
         <p className="text-sm text-gray-600">

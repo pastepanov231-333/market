@@ -26,7 +26,7 @@ export function Home() {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20 text-blue-900">
+    <div className="bg-[var(--fresh-bg)] text-blue-900">
       <Header title="Главная" onBack={() => nav("/addresses")} />
 
       <div className="px-4 py-3 bg-white z-20 relative">

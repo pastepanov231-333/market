@@ -41,7 +41,7 @@ export function Tracking() {
   const currentIndex = useMemo(() => steps.findIndex((s) => s.id === status), [status]);
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title="Отслеживание заказа" onBack={() => nav("/orders")} />
 
       <div className="px-4 py-6 space-y-4">

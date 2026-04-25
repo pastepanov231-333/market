@@ -14,7 +14,7 @@ export function Profile() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title="Профиль" onBack={() => nav("/home")} />
 
       <div className="px-4 py-6 space-y-4">

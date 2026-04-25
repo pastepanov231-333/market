@@ -192,7 +192,10 @@ export function ProductDetails() {
       </div>
 
       {/* Bottom Sticky Action Bar */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white/80 backdrop-blur-md border-t border-gray-100 p-4 z-40">
+      <div 
+        className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-white/80 backdrop-blur-md border-t border-gray-100 p-4 z-40"
+        style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}
+      >
         <div className="flex items-center gap-3">
           <QuantityStepper
             value={qty}

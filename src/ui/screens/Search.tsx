@@ -20,7 +20,7 @@ export function Search() {
   const hasResults = query.trim().length > 0;
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <div className="bg-white px-4 py-4 sticky top-0 z-20 border-b border-gray-100">
         <div className="flex items-center gap-3">
           <button

@@ -29,7 +29,7 @@ export function Orders() {
   const filtered = useMemo(() => byStatus(filter), [byStatus, filter, orders]);
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title="Мои заказы" onBack={() => nav("/home")} />
 
       <div className="px-4 py-4 bg-white border-b border-gray-100">

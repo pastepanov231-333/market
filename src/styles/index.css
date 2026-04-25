@@ -5,9 +5,13 @@ html,
 body,
 #root {
   height: 100%;
-  overscroll-behavior-y: none; /* Предотвращает оттягивание экрана за пределы (pull-to-refresh) на iOS */
-  -webkit-tap-highlight-color: transparent; /* Убирает серое мигание при клике на элементы */
-  -webkit-touch-callout: none; /* Отключает меню при долгом нажатии */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent body scroll, use internal scrolls */
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 /* Делаем так, чтобы текст нельзя было выделить как на обычных сайтах (приближает к нативному приложению) */

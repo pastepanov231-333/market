@@ -35,7 +35,7 @@ export function Cart() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+      <div className="bg-[var(--fresh-bg)]">
         <Header title="Корзина" onBack={() => nav("/home")} />
         <div className="px-4 py-8">
           <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
@@ -57,7 +57,7 @@ export function Cart() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       <Header title="Корзина" onBack={() => nav("/home")} />
 
       <div className="px-4 py-4 bg-white border-b border-gray-100">

@@ -5,7 +5,7 @@ export function Onboarding() {
   const nav = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[var(--fresh-green)] to-[var(--fresh-green-dark)] text-white">
+    <div className="flex-1 flex flex-col bg-gradient-to-b from-[var(--fresh-green)] to-[var(--fresh-green-dark)] text-white">
       <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
         <div className="w-32 h-32 bg-white rounded-3xl flex items-center justify-center mb-6 shadow-2xl">
           <span className="text-6xl">🛒</span>

@@ -64,7 +64,7 @@ export function SellerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--fresh-bg)] pb-20">
+    <div className="bg-[var(--fresh-bg)]">
       {/* Dynamic Cover/Banner Component */}
       <div className="relative h-48 sm:h-56 w-full bg-gradient-to-r from-green-400 to-green-600"
            style={seller.bannerUrl?.includes("metizych") ? { background: "#f5c518" } : undefined}>

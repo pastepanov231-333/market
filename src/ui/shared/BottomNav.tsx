@@ -21,8 +21,8 @@ export function BottomNav() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white flex justify-center"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)", paddingTop: "0.5rem" }}
+      className="border-t border-gray-100 bg-white/95 backdrop-blur-md flex justify-center w-full"
+      style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))", paddingTop: "0.5rem" }}
     >
       <div className="grid grid-cols-6 w-full max-w-md">
         {items.map(({ path, label, Icon }) => {
