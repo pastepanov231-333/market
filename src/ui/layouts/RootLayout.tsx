@@ -10,7 +10,7 @@ export function RootLayout() {
   const isDev = import.meta.env.MODE === "development";
 
   return (
-    <div className="bg-[var(--fresh-bg)]">
+    <div className="h-screen w-full flex flex-col bg-[var(--fresh-bg)]">
       {isDev ? (
         <PhoneFrame>
           {/* Top safe‑area for Dynamic Island / notch. On desktop safe‑area = 0. */}

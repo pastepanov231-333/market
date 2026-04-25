@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { sellers } from "@/ui/state/mock";
 import { Star, X, Clock, ChevronRight } from "lucide-react";
-import L from "leaflet";
+import * as L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 // Types
